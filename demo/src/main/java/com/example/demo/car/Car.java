@@ -1,32 +1,44 @@
 package com.example.demo.car;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table
 public class Car {
+    @Id
+    @SequenceGenerator(
+            name = "car_sequence",
+            sequenceName = "car_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence"
+    )
     private Long id;
     private String brand;
     private String model;
     private Double horsepower;
+    @Transient
     private Double kilowatt;
     private LocalDate dateOfBuild;
 
     public Car() {
     }
 
-    public Car(Long id, String brand, String model, Double horsepower, Double kilowatt, LocalDate dateOfBuild) {
+    public Car(Long id, String brand, String model, Double horsepower, LocalDate dateOfBuild) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.horsepower = horsepower;
-        this.kilowatt = kilowatt;
         this.dateOfBuild = dateOfBuild;
     }
 
-    public Car(String brand, String model, Double horsepower, Double kilowatt, LocalDate dateOfBuild) {
+    public Car(String brand, String model, Double horsepower, LocalDate dateOfBuild) {
         this.brand = brand;
         this.model = model;
-        this.horsepower = horsepower;
-        this.kilowatt = kilowatt;
+        this.horsepower = horsepower;;
         this.dateOfBuild = dateOfBuild;
     }
 
@@ -63,7 +75,7 @@ public class Car {
     }
 
     public Double getKilowatt() {
-        return kilowatt;
+        return Math.round(this.horsepower/1.36 * 100.00) / 100.00;
     }
 
     public void setKilowatt(Double kilowatt) {
