@@ -1,0 +1,10 @@
+###
+POST http://localhost:8080/api/car
+Content-Type: application/json
+
+{
+  "brand": "audi",
+  "model": "a4",
+  "horsepower": "125.0",
+  "dateOfBuild": "2012-04-11"
+}

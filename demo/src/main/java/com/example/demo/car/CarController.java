@@ -1,9 +1,7 @@
 package com.example.demo.car;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +21,17 @@ public class CarController {
     @GetMapping
     public List<Car> getCars(){
         return carService.getCars();
+    }
+
+    // Nutzt POST um Daten an die Datenbank/Server zu senden
+    @PostMapping
+    public void registerNewCar(@RequestBody Car car){
+        carService.addNewCar(car);
+    }
+
+    @DeleteMapping(path = "{carId}")
+    public void deleteCar(@PathVariable("carId") Long carId ) {
+        carService.deleteStudent(carId);
     }
 
 }
